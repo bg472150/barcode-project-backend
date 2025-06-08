@@ -4,8 +4,8 @@ import com.barcode.scanapi.model.Teacher;
 import com.barcode.scanapi.model.TeacherSignInResponseVO;
 import com.barcode.scanapi.service.TeacherSignInService;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.awt.*;
 
 @RestController
-@RequestMapping(value="/teach_api/v1", produces = MediaType.APPLICATION_JSON)
+@RequestMapping(value="/teach_api/v1")
 public class TeachSignInController {
     private final TeacherSignInService teacherSignInService;
 

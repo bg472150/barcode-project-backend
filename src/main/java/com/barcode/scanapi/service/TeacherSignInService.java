@@ -5,6 +5,7 @@ import com.barcode.scanapi.model.TeacherSignIn;
 import com.barcode.scanapi.repository.TeacherRepo;
 import com.barcode.scanapi.repository.TeacherSignInRepo;
 import jakarta.transaction.Transactional;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,9 @@ public class TeacherSignInService {
     private final TeacherSignInRepo teacherSignInRepo;
     private final TeacherRepo teacherRepo;
 
-//    @Autowired
-    public TeacherSignInService(TeacherSignInRepo teacherSignInRepo,TeacherRepo teacherRepo) {
+    public TeacherSignInService(
+            TeacherSignInRepo teacherSignInRepo,
+            TeacherRepo teacherRepo) {
         this.teacherSignInRepo=teacherSignInRepo;
         this.teacherRepo=teacherRepo;
     }
@@ -31,7 +33,7 @@ public class TeacherSignInService {
         Instant now=Instant.now();
         String formattedDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault()).format(now);
 
-        boolean alreadySingedIn=teacherSignInRepo.find(barcode,formattedDate)>0?true:false;
+        boolean alreadySingedIn = teacherSignInRepo.findByBarcodeAndDate(barcode, formattedDate) > 0L;
         if(!alreadySingedIn) {
             TeacherSignIn teacherSignIn=TeacherSignIn.builder().barCode(barcode).date(formattedDate).build();
             try {

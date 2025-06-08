@@ -22,10 +22,35 @@ public class TeacherSignIn {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "teacher_id")
+    @Column(name = "TeacherId")
     @NotNull
     private String barCode;
 
-    @Column(name="sign_in_date")
+
+//    public String getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(String date) {
+//        this.date = date;
+//    }
+//
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(long id) {
+//        this.id = id;
+//    }
+//
+//    public String getBarCode() {
+//        return barCode;
+//    }
+//
+//    public void setBarCode(String barCode) {
+//        this.barCode = barCode;
+//    }
+
+    @Column(name="Date")
     private String date;
 }
