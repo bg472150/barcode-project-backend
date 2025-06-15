@@ -7,15 +7,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
 @Table(name="scan")
 @Entity
 @Builder
-public class TeacherSignIn {
+public class Scan {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
