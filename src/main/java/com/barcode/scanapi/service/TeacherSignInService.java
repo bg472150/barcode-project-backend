@@ -1,30 +1,27 @@
 package com.barcode.scanapi.service;
 
 import com.barcode.scanapi.model.Teacher;
-import com.barcode.scanapi.model.TeacherSignIn;
+import com.barcode.scanapi.model.Scan;
 import com.barcode.scanapi.repository.TeacherRepo;
-import com.barcode.scanapi.repository.TeacherSignInRepo;
+import com.barcode.scanapi.repository.ScanRepo;
 import jakarta.transaction.Transactional;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Service
 @Slf4j
 public class TeacherSignInService {
-    private final TeacherSignInRepo teacherSignInRepo;
+    private final ScanRepo scanRepo;
     private final TeacherRepo teacherRepo;
 
     public TeacherSignInService(
-            TeacherSignInRepo teacherSignInRepo,
+            ScanRepo scanRepo,
             TeacherRepo teacherRepo) {
-        this.teacherSignInRepo=teacherSignInRepo;
+        this.scanRepo = scanRepo;
         this.teacherRepo=teacherRepo;
     }
 
@@ -33,11 +30,11 @@ public class TeacherSignInService {
         Instant now=Instant.now();
         String formattedDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").withZone(ZoneId.systemDefault()).format(now);
 
-        boolean alreadySignedIn = teacherSignInRepo.findByBarcodeAndDate(barcode, formattedDate) > 0L;
+        boolean alreadySignedIn = scanRepo.findByBarcodeAndDate(barcode, formattedDate) > 0L;
         if(!alreadySignedIn) {
-            TeacherSignIn teacherSignIn=TeacherSignIn.builder().barCode(barcode).date(formattedDate).build();
+            Scan scan = Scan.builder().barCode(barcode).date(formattedDate).build();
             try {
-                teacherSignInRepo.save(teacherSignIn);
+                scanRepo.save(scan);
                 log.info("signed in teacher with id {}", barcode);
             }
             catch(Exception e) {
